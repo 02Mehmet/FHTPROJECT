@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Employee.UI.Models.EmployeeModel>
+
+@{
+    ViewBag.Title = "Index";
+    var usr = Employee.UI.session.helper.get_user(HttpContext.Current);
+}
+
+<h2>Index</h2>
+
+     @if (usr.Role == "Admin")
+     {
+     <p>
+        @Html.ActionLink("Create New", "Create")
+     </p>
+     }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnnualSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthlySalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeType)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnualSalary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonthlySalary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeType)
+        </td>
+        @if (usr.Role == "Admin")
+        {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        }
+        </tr>
+        }
+
+    </table>
